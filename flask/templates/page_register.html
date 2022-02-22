@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+</head>
+<body>
+    <h3>用户注册</h3>
+    <form action="{{ url_for('page_register') }}" method="post">
+        {{ form.csrf_token }}
+        <p>
+            {{ form.username.label }}
+            {{ form.username }}
+        </p>
+        <p>
+            {{ form.password.label }}
+            {{ form.password }}
+        </p>
+        <p>
+            {{ form.birth_date.label }}
+            {{ form.birth_date }}
+        </p>
+        <p>
+            {{ form.age.label }}
+            {{ form.age }}
+        </p>
+        <p>
+            {{ form.submit }}
+        </p>
+    </form>
+</body>
+</html>

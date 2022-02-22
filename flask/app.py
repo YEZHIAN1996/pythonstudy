@@ -1,9 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+
+from forms import LoginForm, RegisterForm
 
 app = Flask(__name__)
 # 配置数据库
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:yza0404..@localhost/school'
+app.config['WTF_CSRF_SECRET_KEY'] = 'abc123abc'
+app.config['SECRET_KEY'] = 'abc123abc'
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -35,6 +39,44 @@ def list_user(page):
     user_page_data = user_ls.paginate(page, per_page)
     return render_template('list_user.html', user_page_data=user_page_data)
 
+
+@app.route('/form', methods=['POST', 'GET'])
+def page_form():
+    form = LoginForm()
+    #
+    if form.validate_on_submit():
+        pass
+    else:
+        print(form.errors)
+    return render_template('page_form.html', form=form)
+
+@app.route('/user/register', methods=['GET', 'POST'])
+def page_register():
+    '''新用户注册'''
+    # csrf_enabled为false表示不做csrf校验 csrf_enabled=False
+    form = RegisterForm()
+    if form.validate_on_submit():
+        # 表单验证通过
+        # 1.获取表单数据
+        username = form.username.data
+        password = form.password.data
+        birth_date = form.birth_date.data
+        age = form.age.data
+        # 2.构建用户对象
+        user = User(
+            username=username,
+            password=password,
+            birth_date=birth_date,
+            age=age
+        )
+        # 3.提交到数据库
+        db.session.add(user)
+        db.session.commit()
+        # 4.跳转到登录页面
+        return redirect(url_for('hello_world'))
+    else:
+        print(form.errors)
+    return render_template('page_register.html', form=form)
 
 if __name__ == '__main__':
     app.run()
