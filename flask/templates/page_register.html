@@ -11,6 +11,11 @@
         <p>
             {{ form.username.label }}
             {{ form.username }}
+            {% if form.username.errors %}
+                {% for err in form.username.errors %}
+                    <span>{{ err }}</span>
+                {% endfor %}
+            {% endif %}
         </p>
         <p>
             {{ form.password.label }}

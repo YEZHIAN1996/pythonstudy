@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+import os
 
+from flask import Flask, render_template, redirect, url_for, request
+from flask_sqlalchemy import SQLAlchemy
 from forms import LoginForm, RegisterForm
 
 app = Flask(__name__)
@@ -45,7 +46,7 @@ def page_form():
     form = LoginForm()
     #
     if form.validate_on_submit():
-        pass
+        print('登录成功')
     else:
         print(form.errors)
     return render_template('page_form.html', form=form)
@@ -78,5 +79,16 @@ def page_register():
         print(form.errors)
     return render_template('page_register.html', form=form)
 
+@app.route('/img/upload', methods=['GET', 'POST'])
+def img_upload():
+    file_path = os.path.join(os.path.dirname(__file__), 'medis')
+    if request.method == 'POST':
+        files = request.files
+        file1 = files.get('file1', None)
+        if file1:
+            file_name = os.path.join(file_path, file1)
+            file1.save(file_name)
+        return redirect(url_for('img_upload'))
+    return render_template('img_upload.html')
 if __name__ == '__main__':
     app.run()
