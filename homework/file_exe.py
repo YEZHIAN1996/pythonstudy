@@ -58,11 +58,12 @@ if __name__ == '__main__':
     print(introduction('慕课学院（1）班学生信息'))
     for i in students:
         print(f'Name:{i.sname},s_number:{i.sno}')
+        print(i)
     print(introduction("慕课学院（1）班选课结果"))
 
     for i in range(len(students)):
         # print(c_to_t[i])
         students[i].add_course(cour_info=c_to_t[i])
-        print(students[i].course_detail())
+        print(students[i].course_detail)
         # print(students[i].course)
 

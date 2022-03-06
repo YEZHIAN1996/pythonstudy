@@ -6,14 +6,15 @@ class Student():
         self.sname = sname
         self.course = []
 
+    @property
     def course_detail(self):
         return f'Name:{self.sname},selected:{self.course}'
 
     def add_course(self, cour_info):
             self.course.append(cour_info)
 
-    # def str(self):
-    #     return 'name:%s,s_number:%s'.format(self.sname, self.sno)
+    def __str__(self):
+        return 'name:{},s_number:{}'.format(self.sname, self.sno)
 
 
 class Teacher():
