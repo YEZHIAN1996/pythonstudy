@@ -1,0 +1,2 @@
+mysql_connector_python==8.0.25
+xlrd==1.2.0

@@ -62,18 +62,18 @@ class Game_num(object):
                 print('您所输入的为非数字字符, 请重新启动！')
                 sys.exit()
             if self.check_num_legal(input_num):
-                continue
-            temp += 1
-            self.write_record(temp, input_num)
-            print('*' * 10)
+                # continue
+                temp += 1
+                self.write_record(temp, input_num)
+                print('*' * 10)
 
-            if input_num < rand1:
-                print('Lower than the answer')
-            elif input_num > rand1:
-                print('Higher than the answer')
-            else:
-                print('恭喜您！只用了%s次就赢得了游戏' % temp)
-                break
+                if input_num < rand1:
+                    print('Lower than the answer')
+                elif input_num > rand1:
+                    print('Higher than the answer')
+                else:
+                    print('恭喜您！只用了%s次就赢得了游戏' % temp)
+                    break
 
 if __name__ == '__main__':
     guess_num = Game_num()
