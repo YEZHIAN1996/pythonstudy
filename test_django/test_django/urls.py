@@ -22,3 +22,4 @@ urlpatterns = [
     path('artcle/<int:month>', article_list, name='article_list'),
     path('test/', include('hello.urls'))
 ]
+handler500 = 'test_django.views.page_500'

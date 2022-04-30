@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
+
+
 # Create your views here.
 def hello_world(request):
     return HttpResponse('hello world')
@@ -15,3 +17,12 @@ def is_odd(request, num):
             return HttpResponse('{}是偶数'.format(num))
         else:
             return HttpResponse('{}是奇数'.format(num))
+
+def http_req(request):
+    print(request.method)
+    print(request.headers)
+    print(request.headers['user-agent'])
+
+    print(request.META.get('User-Agent'))
+    return HttpResponse('响应')
+
