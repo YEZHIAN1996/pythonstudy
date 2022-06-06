@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>异步加载页面</title>
+    <script src='http://libs.baidu.com/jquery/2.0.0/jquery.min.js'></script>
+</head>
+<body onload="onLoad()">
+    <h1>视频课程</h1>
+    <ul id="video_list">
+        <li>java</li>
+        <li>python</li>
+        <li>go</li>
+    </ul>
+    <script>
+        function onLoad(){
+            $.get("/data",function(result){
+                data = JSON.parse(result)
+                for(var i=0;i<data.length;i++){
+                    $('#video_list').append('<li>' + data[i].name + '</li>')
+                }
+            });
+        }
+    </script>
+</body>
+</html>
