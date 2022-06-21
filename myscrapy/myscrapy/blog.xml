@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items>
+<item><title>Android的init过程详解（一）</title><href>https://geekori.com/blogDetails.php?blog_id=36</href><abstract>
+         本文及后续几篇文章将对Android的初始化（init）过程进行详细地、剥丝抽茧式地分析，并且在其中穿插了大量的知识，希望对读者了解Android的启动过程又所帮助。本章主要介绍了与硬件相关初始化文件名的确定以及属性服务的原理和实现。</abstract></item>
+</items>

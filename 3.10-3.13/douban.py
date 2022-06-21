@@ -11,15 +11,16 @@ def handle_request(url):
     :return: resposne.text
     '''
     header = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9",
-        "Connection": "keep-alive",
+        #"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+        # "Accept-Encoding": "gzip, deflate, br",
+        #"Accept-Language": "zh-CN,zh;q=0.9",
+        #"Connection": "keep-alive",
         "Host": "movie.douban.com",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+        #"Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.5005.61 Safari/536.36"
     }
     response = requests.get(url=url, headers=header, timeout=(5, 5), proxies=None)
+    print(response.status_code)
     if response.status_code == 200 and response:
         return response.text
 
@@ -98,10 +99,10 @@ class DataSpider(threading.Thread):
         info = {
             # 解析电影名称、演职人员、电影评分、评价人数、电影简述信息
             'movie_name': self._join_list(html.xpath('//div[@id="content"]/h1/span[1]/text()')),
-            'actor_name': self._join_list(html.xpath('//span[@class="actor"]/span[2]')),
+            'actor_name': self._join_list(html.xpath('//span[@class="actor"]/span[2]/a/text()')),
             'grade': self._join_list(html.xpath('//div[@id="interest_sectl"]/div/div[2]/strong/text()')),
-            'rating_sum': self._join_list(html.xpath('//div[@id="interest_sectl"]/div/div[2]/div[@class="rating_right"]/div[2]/a/span/text()')),
-            'simple_info': self._join_list(html.xpath('//span[@class="short"]/span/text()'))
+            'rating_sum': self._join_list(html.xpath('//div[@id="interest_sectl"]/div/div[2]/div/div[2]/a/span/text()')),
+            'simple_info': self._join_list(html.xpath('//div[@class="indent"]/span[@class="short"]/span/text()'))
         }
 
         with self.lock:
